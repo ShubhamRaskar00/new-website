@@ -1,6 +1,20 @@
+"use client"
 import Image from "next/image";
+import { useEffect, useState } from "react";
+
+
 
 function MainPage() {
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  if (!mounted) {
+    return null;
+  }
+  
   return (
     <div className="font-bold py-36 text-center space-y-4 flex items-center justify-around">
       <div className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl space-y-5 font-extrabold">

@@ -24,6 +24,16 @@ body {
     auto;
 }
 
+.progress-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 10px;
+  background: #ff0055;
+  transform-origin: 0%;
+}
+
 @layer base {
   :root {
     --background: 0 0% 100%;
