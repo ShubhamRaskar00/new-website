@@ -1,35 +1,51 @@
-import { Button } from "./ui/button"
-import { Sheet, SheetClose, SheetContent, SheetDescription, SheetFooter, SheetHeader, SheetTitle, SheetTrigger } from "./ui/sheet"
-
+import { Menu } from "lucide-react";
+import { Button } from "./ui/button";
+import {
+  Sheet,
+  SheetClose,
+  SheetContent,
+  SheetDescription,
+  SheetFooter,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+} from "./ui/sheet";
+import Link from "next/link";
+const navItems = [
+  {
+    label: "About",
+    href: "/about",
+  },
+  {
+    label: "Portfolio",
+    href: "/portfolio",
+  },
+  {
+    label: "Contact",
+    href: "/contact",
+  },
+];
 function MobileNavBar() {
   return (
     <Sheet>
-      <SheetTrigger asChild>
-        <Button variant="outline">Open</Button>
+      <SheetTrigger>
+        <Button variant="outline">
+          <Menu className="cursor-pointer" />
+        </Button>
       </SheetTrigger>
       <SheetContent>
-        <SheetHeader>
-          <SheetTitle>Edit profile</SheetTitle>
-          <SheetDescription>
-            Make changes to your profile here. Click save when youre done.
-          </SheetDescription>
-        </SheetHeader>
-        <div className="grid gap-4 py-4">
-          <div className="grid grid-cols-4 items-center gap-4">
-            
-          </div>
-          <div className="grid grid-cols-4 items-center gap-4">
-            
-          </div>
-        </div>
-        <SheetFooter>
-          <SheetClose asChild>
-            <Button type="submit">Save changes</Button>
+        {navItems.map((list) => (
+          <Link href={list.href} key={list.href} className="flex">
+            <SheetClose className="w-full" >
+            <Button className="w-full my-1">
+              {list.label}
+            </Button>
           </SheetClose>
-        </SheetFooter>
+          </Link>
+        ))}
       </SheetContent>
     </Sheet>
-  )
+  );
 }
 
-export default MobileNavBar
+export default MobileNavBar;
