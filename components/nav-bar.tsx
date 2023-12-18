@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { Button } from "./ui/button";
 import MobileNavBar from "@/components/mobile-navbar";
+import { useState, useEffect } from 'react'
 
 const navItems = [
   {
@@ -20,7 +21,18 @@ const navItems = [
   },
 ];
 
+
 function NavBar() {
+  const [isClient, setIsClient] = useState(false);
+
+  useEffect(() => {
+    setIsClient(true)
+  }, []);
+
+  if(!isClient) {
+    return null
+  }
+
   return (
     <nav className="flex justify-between items-center py-4 bg-white sticky top-0">
       <Link href="/">
