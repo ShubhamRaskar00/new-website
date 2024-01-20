@@ -15,7 +15,7 @@ function MainPage() {
   }
 
   return (
-    <div className="font-bold py-36 text-center space-y-4 flex items-center justify-around">
+    <div className="font-bold h-[88vh] text-center space-y-4 flex items-center justify-around">
       <div className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl space-y-5 font-extrabold">
         <motion.div
           initial={{ opacity: 0, y: 50 }}
@@ -47,6 +47,7 @@ function MainPage() {
             </motion.span>{" "}
           </h1>
         </motion.div>
+
       </div>
       <div className="relative h-32 w-32 overflow-hidden rounded-full">
         <Image fill alt="Author image" src="/shubham.png" />
