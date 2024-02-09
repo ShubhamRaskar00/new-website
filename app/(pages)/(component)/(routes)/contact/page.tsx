@@ -12,6 +12,7 @@ function ContactPage() {
     phoneNumber: "",
     message: "",
   });
+  const [submitted, setSubmitted] = useState(false);
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -26,16 +27,18 @@ function ContactPage() {
     e.preventDefault();
     // Send form data to backend API
     try {
-      const response = await axios.post(
-        `${server}contact/sendmail`,
-        formData
-      );
+      const response = await axios.post(`${server}contact/sendmail`, formData);
       setFormData({
         name: "",
         email: "",
         phoneNumber: "",
         message: "",
       });
+
+      if(response.data.success){
+        setSubmitted(true)
+      }
+
     } catch (err) {
       console.log("error___________", err);
     } finally {
@@ -50,9 +53,7 @@ function ContactPage() {
         <div className="xl:flex -mx-4">
           <div className="xl:mx-auto">
             <div className="xl:w-3/4 mb-4">
-              <h1 className="text-3xl text-medium mb-4">
-                Contact Us
-              </h1>
+              <h1 className="text-3xl text-medium mb-4">Contact Us</h1>
               <p className="text-xl mb-2">
                 Please submit your information and we will get back to you.
               </p>
@@ -68,57 +69,66 @@ function ContactPage() {
             </div>
 
             <div className="md:flex md:-mx-4 mt-4 md:mt-10">
-              <div className="md:w-2/3 md:px-4">
-                <form className="contact-form" onSubmit={handleSubmit}>
-                  <div className="sm:flex sm:flex-wrap -mx-3">
-                    <div className="sm:w-1/2 px-3 mb-6">
-                      <input
-                        type="text"
-                        placeholder="Full Name"
-                        name="name"
-                        className="border-2 rounded px-3 py-1 w-full focus:border-indigo-400 input"
-                        onChange={handleChange}
-                      />
-                    </div>
-                    {/* <div className="sm:w-1/2 px-3 mb-6">
-                  <input type="text" placeholder="Company Name" className="border-2 rounded px-3 py-1 w-full focus:border-indigo-400 input"/>
-                </div> */}
-                    <div className="sm:w-1/2 px-3 mb-6">
-                      <input
-                        type="email"
-                        placeholder="E-mail address"
-                        name="email"
-                        className="border-2 rounded px-3 py-1 w-full focus:border-indigo-400 input"
-                        onChange={handleChange}
-                      />
-                    </div>
-                    <div className="sm:w-1/2 px-3 mb-6">
-                      <input
-                        type="text"
-                        name="phoneNumber"
-                        placeholder="Phone Number"
-                        className="border-2 rounded px-3 py-1 w-full focus:border-indigo-400 input"
-                        onChange={handleChange}
-                      />
-                    </div>
-                    <div className="sm:w-full px-3">
-                      <textarea
-                        name="message"
-                        id="message"
-                        placeholder="Your message here"
-                        className="border-2 rounded px-3 py-1 w-full focus:border-indigo-400 input"
-                        onChange={handleChange}
-                      ></textarea>
-                    </div>
-                  </div>
-                  <div className="text-right mt-4 md:mt-12">
-                    <button className="border-2 border-indigo-600 rounded px-6 py-2 text-indigo-600 hover:bg-indigo-600 hover:text-white transition-colors duration-300">
-                      Send a Message
-                      <i className="fas fa-chevron-right ml-2 text-sm"></i>
-                    </button>
-                  </div>
-                </form>
+
+              {submitted ? (
+              <div className="alert animate-bounce bg-green-500 text-white p-4 rounded flex justify-center items-center">
+                <span className=" text-center md:text-3xl">
+                  Your message was sent successfully! <br /> We&apos;ll get back to you as soon as possible.
+                </span>
               </div>
+            ) : (
+              <form className="md:w-2/3 md:px-4" onSubmit={handleSubmit}>
+                <div className="sm:flex sm:flex-wrap -mx-3">
+                  <div className="sm:w-1/2 px-3 mb-6">
+                    <input
+                      type="text"
+                      placeholder="Full Name"
+                      name="name"
+                      className="border-2 rounded px-3 py-1 w-full focus:border-indigo-400 input"
+                      onChange={handleChange}
+                      value={formData.name}
+                    />
+                  </div>
+                  
+                  <div className="sm:w-1/2 px-3 mb-6">
+                    <input
+                      type="email"
+                      placeholder="E-mail address"
+                      name="email"
+                      className="border-2 rounded px-3 py-1 w-full focus:border-indigo-400 input"
+                      onChange={handleChange}
+                      value={formData.email}
+                    />
+                  </div>
+                  <div className="sm:w-1/2 px-3 mb-6">
+                    <input
+                      type="text"
+                      name="phoneNumber"
+                      placeholder="Phone Number"
+                      className="border-2 rounded px-3 py-1 w-full focus:border-indigo-400 input"
+                      onChange={handleChange}
+                      value={formData.phoneNumber}
+                    />
+                  </div>
+                  <div className="sm:w-full px-3">
+                    <textarea
+                      name="message"
+                      id="message"
+                      placeholder="Your message here"
+                      className="border-2 rounded px-3 py-1 w-full focus:border-indigo-400 input"
+                      onChange={handleChange}
+                      value={formData.message}
+                    ></textarea>
+                  </div>
+                </div>
+                <div className="text-right mt-4 md:mt-12">
+                  <button className="border-2 border-indigo-600 rounded px-6 py-2 text-indigo-600 hover:bg-indigo-600 hover:text-white transition-colors duration-300">
+                    Send a Message
+                    <i className="fas fa-chevron-right ml-2 text-sm"></i>
+                  </button>
+                </div>
+              </form>
+            )}
 
               <div className="md:w-1/3 md:px-4 mt-10 md:mt-0">
                 <div className="bg-indigo-100 rounded py-4 px-6">
