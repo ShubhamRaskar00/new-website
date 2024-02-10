@@ -13,7 +13,6 @@ function LandingLayout({ children }: { children: React.ReactNode }) {
       <ScrollArea className="h-screen">
         <div className="mx-auto max-w-screen-xl w-full h-full md:p-4 sm:p-2">
           <NavBar />
-          
           {children}
         </div>
         <Footer />

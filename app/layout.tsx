@@ -20,8 +20,10 @@ export default function RootLayout({
   return (
     <html lang="en">
       <CrispProvider />
-      <NextTopLoader color='#220f3c' showSpinner={false} height={1} />
-      <body className={inter.className}>{children}</body>
+      <body className={inter.className}>
+        <NextTopLoader color='#220f3c' showSpinner={false} height={1} />
+        {children}
+        </body>
     </html>
   )
 }

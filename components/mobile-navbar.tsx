@@ -33,14 +33,12 @@ function MobileNavBar() {
           <Menu className="cursor-pointer" />
         </Button>
       </SheetTrigger>
-      <SheetContent>
+      <SheetContent className="pt-12">
         {navItems.map((list) => (
           <Link href={list.href} key={list.href} className="flex">
-            <SheetClose className="w-full" >
-            <Button className="w-full my-1">
-              {list.label}
-            </Button>
-          </SheetClose>
+            <SheetClose className="w-full">
+              <Button className="w-full my-1">{list.label}</Button>
+            </SheetClose>
           </Link>
         ))}
       </SheetContent>
